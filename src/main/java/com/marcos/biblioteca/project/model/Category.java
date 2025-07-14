@@ -11,7 +11,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tb_category")
-public class Categoria implements Serializable{
+public class Category implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -19,10 +19,10 @@ public class Categoria implements Serializable{
 	private Long id;
 	private String name;
 	
-	public Categoria() {
+	public Category() {
 	}
 
-	public Categoria(Long id, String name) {
+	public Category(Long id, String name) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -57,7 +57,7 @@ public class Categoria implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Categoria other = (Categoria) obj;
+		Category other = (Category) obj;
 		return Objects.equals(id, other.id);
 	}
 	

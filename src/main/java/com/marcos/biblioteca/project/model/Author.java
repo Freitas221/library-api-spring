@@ -11,7 +11,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tb_author")
-public class Autor implements Serializable{
+public class Author implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -20,10 +20,10 @@ public class Autor implements Serializable{
 	private String nome;
 	private String nacionalidade;
 	
-	public Autor() {
+	public Author() {
 	}
 
-	public Autor(Long id, String nome, String nacionalidade) {
+	public Author(Long id, String nome, String nacionalidade) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -67,7 +67,7 @@ public class Autor implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Autor other = (Autor) obj;
+		Author other = (Author) obj;
 		return Objects.equals(id, other.id);
 	}
 	

@@ -12,7 +12,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tb_book")
-public class Livro implements Serializable{
+public class Book implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -20,14 +20,14 @@ public class Livro implements Serializable{
 	private Long id;
 	private String titulo;
 	private LocalDate publication;
-	private Autor autor;
-	private Editora editora;
-	private Categoria categorias;
+	private Author autor;
+	private Publisher editora;
+	private Category categorias;
 	
-	public Livro() {
+	public Book() {
 	}
 
-	public Livro(Long id, String titulo, LocalDate publication, Autor autor, Editora editora, Categoria categorias) {
+	public Book(Long id, String titulo, LocalDate publication, Author autor, Publisher editora, Category categorias) {
 		super();
 		this.id = id;
 		this.titulo = titulo;
@@ -61,27 +61,27 @@ public class Livro implements Serializable{
 		this.publication = publication;
 	}
 
-	public Autor getAutor() {
+	public Author getAutor() {
 		return autor;
 	}
 
-	public void setAutor(Autor autor) {
+	public void setAutor(Author autor) {
 		this.autor = autor;
 	}
 
-	public Editora getEditora() {
+	public Publisher getEditora() {
 		return editora;
 	}
 
-	public void setEditora(Editora editora) {
+	public void setEditora(Publisher editora) {
 		this.editora = editora;
 	}
 
-	public Categoria getCategorias() {
+	public Category getCategorias() {
 		return categorias;
 	}
 
-	public void setCategorias(Categoria categorias) {
+	public void setCategorias(Category categorias) {
 		this.categorias = categorias;
 	}
 
@@ -98,7 +98,7 @@ public class Livro implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Livro other = (Livro) obj;
+		Book other = (Book) obj;
 		return Objects.equals(id, other.id);
 	}
 	
