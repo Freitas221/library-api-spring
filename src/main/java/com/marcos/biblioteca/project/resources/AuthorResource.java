@@ -2,6 +2,7 @@ package com.marcos.biblioteca.project.resources;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,7 +16,8 @@ import com.marcos.biblioteca.project.service.AuthorService;
 @RequestMapping(value = "/authors")
 public class AuthorResource {
 	
-	public AuthorService service;
+	@Autowired
+	private AuthorService service;
 	
 	@GetMapping
 	public ResponseEntity<List<Author>> findAll() {
@@ -23,7 +25,7 @@ public class AuthorResource {
 		return ResponseEntity.ok().body(obj);
 	}
 	
-	@GetMapping({"/id"})
+	@GetMapping(value = "/{id}")
 	public ResponseEntity<Author> findById(@PathVariable Long id) {
 		Author obj = service.findById(id);
 		return ResponseEntity.ok().body(obj);
