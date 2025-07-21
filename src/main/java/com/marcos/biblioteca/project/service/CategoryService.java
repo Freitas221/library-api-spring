@@ -7,5 +7,5 @@ import com.freitas.course.repositories.CategoryRepository;
 public class CategoryService {
 
 	@Autowired
-	private CategoryRepository category;
+	private CategoryRepository repository;
 }

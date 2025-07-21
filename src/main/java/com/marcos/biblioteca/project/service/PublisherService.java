@@ -7,5 +7,5 @@ import com.marcos.biblioteca.project.repositories.PublisherRepository;
 public class PublisherService {
 	
 	@Autowired
-	private PublisherRepository publisher;
+	private PublisherRepository repository;
 }
