@@ -1,12 +1,15 @@
 package com.marcos.biblioteca.project.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -19,6 +22,9 @@ public class Author implements Serializable{
 	private Long id;
 	private String nome;
 	private String nacionalidade;
+	
+	@OneToMany(mappedBy = "autor")
+	List<Book> book = new ArrayList<>();
 	
 	public Author() {
 	}
@@ -52,6 +58,10 @@ public class Author implements Serializable{
 
 	public void setNacionalidade(String nacionalidade) {
 		this.nacionalidade = nacionalidade;
+	}
+	
+	public List<Book> getBook(){
+		return book;
 	}
 
 	@Override
