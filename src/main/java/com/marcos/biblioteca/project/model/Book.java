@@ -9,6 +9,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
@@ -26,7 +28,13 @@ public class Book implements Serializable{
 	@ManyToOne
 	@JoinColumn(name = "autor_id")
 	private Author autor;
+	
+	@ManyToMany
+	@JoinColumn(name = "publisher_id")
 	private Publisher editora;
+	
+	@ManyToMany
+	@JoinTable(name = "book_publisher", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name = "publisher_id"))
 	private Category categorias;
 	
 	public Book() {
