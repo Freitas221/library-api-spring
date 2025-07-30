@@ -16,7 +16,7 @@ public class TestConfig implements CommandLineRunner {
 
 	@Autowired
 	private AuthorRepository authorRepository;
-	
+
 	
 	@Override
 	public void run(String... args) throws Exception {
@@ -25,6 +25,7 @@ public class TestConfig implements CommandLineRunner {
 		Author author2 = new Author(null, "William Shakespeare", "Inglês");
 		Author author3 = new Author(null, "Victor Hugo", "Francês");
 		Author author4 = new Author(null, "Clarice Lispector", "Brasileira");
+
 		
 		authorRepository.saveAll(Arrays.asList(author1, author2, author3, author4));
 	}

@@ -40,14 +40,11 @@ public class Book implements Serializable{
 	public Book() {
 	}
 
-	public Book(Long id, String titulo, LocalDate publication, Author autor, Publisher editora, Category categorias) {
+	public Book(Long id, String titulo, LocalDate publication) {
 		super();
 		this.id = id;
 		this.titulo = titulo;
 		this.publication = publication;
-		this.autor = autor;
-		this.editora = editora;
-		this.categorias = categorias;
 	}
 
 	public Long getId() {
@@ -72,30 +69,6 @@ public class Book implements Serializable{
 
 	public void setPublication(LocalDate publication) {
 		this.publication = publication;
-	}
-
-	public Author getAutor() {
-		return autor;
-	}
-
-	public void setAutor(Author autor) {
-		this.autor = autor;
-	}
-
-	public Publisher getEditora() {
-		return editora;
-	}
-
-	public void setEditora(Publisher editora) {
-		this.editora = editora;
-	}
-
-	public Category getCategorias() {
-		return categorias;
-	}
-
-	public void setCategorias(Category categorias) {
-		this.categorias = categorias;
 	}
 
 	@Override
