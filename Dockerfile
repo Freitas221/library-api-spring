@@ -1,14 +1,14 @@
-FROM maven:3.8.4-jdk-8 AS build
+FROM maven:3.8.4-eclipse-temurin-17 AS build
 
 COPY src /app/src
 COPY pom.xml /app
 
 WORKDIR /app
-RUN mvn clean install
+RUN mvn clean package -DskipTests
 
-FROM openjdk:8-jre-alpine
+FROM openjdk:17-jdk-slim
 
-COPY --from=build /app/target/spring/project-1.0.2-SNAPSHOT.jar /app/app.jar
+COPY --from=build /app/target/*.jar /app/app.jar
 
 WORKDIR /app
 

@@ -2,7 +2,9 @@ package com.marcos.biblioteca.project.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -27,15 +29,15 @@ public class Book implements Serializable{
 	
 	@ManyToOne
 	@JoinColumn(name = "autor_id")
-	private Author autor;
+	private Author author;
 	
-	@ManyToMany
+	@ManyToOne
 	@JoinColumn(name = "publisher_id")
-	private Publisher editora;
+	private Publisher publisher;
 	
 	@ManyToMany
-	@JoinTable(name = "book_publisher", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name = "publisher_id"))
-	private Category categorias;
+	@JoinTable(name = "book_category", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
+	private Set<Category> category = new HashSet<>();
 	
 	public Book() {
 	}
