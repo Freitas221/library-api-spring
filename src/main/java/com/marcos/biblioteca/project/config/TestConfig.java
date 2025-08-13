@@ -19,6 +19,9 @@ public class TestConfig implements CommandLineRunner {
 	@Autowired
 	private AuthorRepository authorRepository;
 	
+	@Autowired
+	private PublisherRepository publisherRepository; 
+	
 	@Override
 	public void run(String... args) throws Exception {
 		
@@ -29,7 +32,13 @@ public class TestConfig implements CommandLineRunner {
 		
 		authorRepository.saveAll(Arrays.asList(author1, author2, author3, author4));
 		
-
+		
+		Publisher publisher1 = new Publisher(null, "Editorial Record");
+		Publisher publisher2 = new Publisher(null, "Penguin-Companhia");
+		Publisher publisher3 = new Publisher(null, "Martin Claret");
+		Publisher publisher4 = new Publisher(null, "Rocco Digital");
+		
+		publisherRepository.saveAll(Arrays.asList(publisher1, publisher2, publisher3, publisher4));
 	}
 
 }
