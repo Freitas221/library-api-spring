@@ -72,6 +72,10 @@ public class Book implements Serializable{
 	public void setPublication(LocalDate publication) {
 		this.publication = publication;
 	}
+	
+	public Set<Category> getCategory() {
+		return category;
+	}
 
 	@Override
 	public int hashCode() {
