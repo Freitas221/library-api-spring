@@ -10,9 +10,11 @@ import org.springframework.context.annotation.Profile;
 
 import com.marcos.biblioteca.project.model.Author;
 import com.marcos.biblioteca.project.model.Book;
+import com.marcos.biblioteca.project.model.Category;
 import com.marcos.biblioteca.project.model.Publisher;
 import com.marcos.biblioteca.project.repositories.AuthorRepository;
 import com.marcos.biblioteca.project.repositories.BookRepository;
+import com.marcos.biblioteca.project.repositories.CategoryRepository;
 import com.marcos.biblioteca.project.repositories.PublisherRepository;
 
 @Configuration
@@ -27,6 +29,9 @@ public class TestConfig implements CommandLineRunner {
 	
 	@Autowired
 	private BookRepository bookRepository;
+	
+	@Autowired
+	private CategoryRepository categoryRepository;
 	
 	@Override
 	public void run(String... args) throws Exception {
@@ -51,6 +56,13 @@ public class TestConfig implements CommandLineRunner {
 		Publisher publisher4 = new Publisher(null, "Rocco Digital");
 		
 		publisherRepository.saveAll(Arrays.asList(publisher1, publisher2, publisher3, publisher4));
+		
+		Category category1 = new Category(null, "Poesia");
+		Category category2 = new Category(null, "Romance");
+		Category category3 = new Category(null, "Romance");
+		Category category4 = new Category(null, "Ficção");
+		
+		categoryRepository.saveAll(Arrays.asList(category1, category2, category3, category4));
 		
 		
 	}
