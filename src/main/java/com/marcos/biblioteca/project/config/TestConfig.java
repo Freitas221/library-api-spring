@@ -55,14 +55,7 @@ public class TestConfig implements CommandLineRunner {
 		Book book4 = new Book(null, "Laços de família",LocalDate.of(1960, 6, 7));
 		
 		bookRepository.saveAll(Arrays.asList(book1, book2, book3, book4));
-		
-		book1.getCategory().add(category1);
-		book2.getCategory().add(category2);
-		book3.getCategory().add(category2);
-		book4.getCategory().add(category3);
-		
-		bookRepository.saveAll(Arrays.asList(book1, book2, book3, book4));
-		
+				
 		Publisher publisher1 = new Publisher(null, "Editorial Record");
 		Publisher publisher2 = new Publisher(null, "Penguin-Companhia");
 		Publisher publisher3 = new Publisher(null, "Martin Claret");
@@ -70,10 +63,23 @@ public class TestConfig implements CommandLineRunner {
 		
 		publisherRepository.saveAll(Arrays.asList(publisher1, publisher2, publisher3, publisher4));
 		
+		book1.getCategory().add(category1);
+		book2.getCategory().add(category2);
+		book3.getCategory().add(category2);
+		book4.getCategory().add(category3);
+		
 		book1.setPublisher(publisher1);
-		book1.setPublisher(publisher2);
-		book1.setPublisher(publisher3);
-		book1.setPublisher(publisher4);		
+		book2.setPublisher(publisher2);
+		book3.setPublisher(publisher3);
+		book4.setPublisher(publisher4);	
+		
+		book1.setAuthor(author1);
+		book2.setAuthor(author2);
+		book3.setAuthor(author3);
+		book4.setAuthor(author4);
+		
+		bookRepository.saveAll(Arrays.asList(book1, book2, book3, book4));
+
 	}
 
 }
