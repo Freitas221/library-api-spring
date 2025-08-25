@@ -23,7 +23,7 @@ public class PublisherResource {
 		return ResponseEntity.ok().body(list);
 	}
 	
-	@GetMapping(value = {"/id"})
+	@GetMapping(value = "{/id}")
 	public ResponseEntity<Publisher> findById(@PathVariable Long id) {
 		Publisher obj = service.findById(id);
 		return ResponseEntity.ok().body(obj);

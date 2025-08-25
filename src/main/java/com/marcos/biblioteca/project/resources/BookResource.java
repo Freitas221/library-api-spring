@@ -23,7 +23,7 @@ public class BookResource {
 		return ResponseEntity.ok().body(list);
 	}
 	
-	@GetMapping({"/id"})
+	@GetMapping(value = {"/id"})
 	public ResponseEntity<Book> findById(@PathVariable Long id){
 		Book obj = service.findById(id);
 		return ResponseEntity.ok().body(obj);
