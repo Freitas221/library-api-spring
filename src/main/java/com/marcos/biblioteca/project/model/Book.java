@@ -72,6 +72,13 @@ public class Book implements Serializable{
 	public void setPublication(LocalDate publication) {
 		this.publication = publication;
 	}
+	public Publisher getPublisher() {
+		return publisher;
+	}
+	
+	public void setPublisher(Publisher publisher) {
+		this.publisher = publisher;
+	}
 	
 	public Set<Category> getCategory() {
 		return category;

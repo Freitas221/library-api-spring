@@ -70,7 +70,10 @@ public class TestConfig implements CommandLineRunner {
 		
 		publisherRepository.saveAll(Arrays.asList(publisher1, publisher2, publisher3, publisher4));
 		
-		
+		book1.setPublisher(publisher1);
+		book1.setPublisher(publisher2);
+		book1.setPublisher(publisher3);
+		book1.setPublisher(publisher4);		
 	}
 
 }
