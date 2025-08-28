@@ -2,6 +2,7 @@ package com.marcos.biblioteca.project.resources;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,7 +16,7 @@ import com.marcos.biblioteca.project.service.CategoryService;
 @RequestMapping(value = "/categories")
 public class CategoryResource {
 
-	
+	@Autowired
 	private CategoryService service;
 	
 	@GetMapping()
@@ -24,7 +25,7 @@ public class CategoryResource {
 		return ResponseEntity.ok().body(list);
 	}
 	
-	@GetMapping(value = "{/id}")
+	@GetMapping(value = "/{id}")
 	public ResponseEntity<Category> findById(@PathVariable Long id) {
 		Category obj = service.findById(id);
 		return ResponseEntity.ok().body(obj);
