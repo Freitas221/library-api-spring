@@ -23,4 +23,8 @@ public class AuthorService {
 		Optional<Author> obj = repository.findById(id);
 		return obj.get();
 	}
+	
+	public Author insert(Author obj) {
+		return repository.save(obj);
+	}
 }

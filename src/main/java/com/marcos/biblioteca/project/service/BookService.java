@@ -23,4 +23,8 @@ public class BookService {
 		Optional<Book> obj = repository.findById(id);
 		return obj.get();
 	}
+	
+	public Book insert(Book obj) {
+		return repository.save(obj);
+	}
 }
