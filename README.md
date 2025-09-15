@@ -20,6 +20,21 @@ API RESTful desenvolvida com **Spring Boot** para gerenciamento de uma bibliotec
 - ✅ Remoção de livros, autores e editora
 - ✅ Consulta de disponibilidade de exemplares
 
+## 🧱 Estrutura do projeto
+  src/
+├── main/
+│ ├── java/
+│ │ └── com.freitas.virtuallibrary
+│ │ ├── entities
+│ │ ├── repositories
+│ │ ├── resources
+│ │ ├── services
+│ │ └── exceptions
+│ └── resources/
+│ ├── application.properties
+│ └── data.sql (opcional)
+└── test/
+
 ## 🔗 Endpoints básicos
 
 | Método | Rota               | Descrição                   |
