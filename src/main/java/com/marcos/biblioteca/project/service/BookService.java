@@ -17,54 +17,52 @@ import com.marcos.biblioteca.project.repositories.BookRepository;
 import com.marcos.biblioteca.project.repositories.CategoryRepository;
 import com.marcos.biblioteca.project.repositories.PublisherRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class BookService {
 
 	@Autowired
-	private BookRepository bookrepository;
-	
+	private BookRepository bookRepository;
+
 	@Autowired
 	private AuthorRepository authorRepository;
-	
+
 	@Autowired
 	private CategoryRepository categoryRepository;
-	
+
 	@Autowired
 	private PublisherRepository publisherRepository;
-	
-	public List<Book> findAll(){
-		return bookrepository.findAll();
+
+	public List<Book> findAll() {
+		return bookRepository.findAll();
 	}
-	
+
 	public Book findById(Long id) {
-		Optional<Book> obj = bookrepository.findById(id);
+		Optional<Book> obj = bookRepository.findById(id);
 		return obj.get();
+		
 	}
 	
+	@Transactional
 	public Book insert(Book obj) {
 
-	
-	    Author author = authorRepository.findById(obj.getAuthor().getId())
-	            .orElseThrow(() -> new RuntimeException("Author not found"));
-	    
-	    Publisher publisher = publisherRepository.findById(obj.getPublisher().getId())
-	            .orElseThrow(() -> new RuntimeException("Publisher not found"));
+		    Author author = authorRepository.findById(obj.getAuthor().getId())
+		            .orElseThrow(() -> new RuntimeException("Author not found"));
 
-	    obj.setAuthor(author);
-	    obj.setPublisher(publisher);
+		    Publisher publisher = publisherRepository.findById(obj.getPublisher().getId())
+		            .orElseThrow(() -> new RuntimeException("Publisher not found"));
 
-	   //Save the Book first, without categories
-	    Book savedBook = bookrepository.save(obj);
+		    obj.setAuthor(author);
+		    obj.setPublisher(publisher);
+		    
+		    Set<Category> categoriesPersistidas = obj.getCategory().stream()
+		            .map(cat -> categoryRepository.findById(cat.getId())
+		                    .orElseThrow(() -> new RuntimeException("Category not found")))
+		            .collect(Collectors.toSet());
 
-	    if (obj.getCategory() != null) {
-	        Set<Category> persistentCategories = obj.getCategory().stream()
-	                .map(cat -> categoryRepository.findById(cat.getId())
-	                        .orElseThrow(() -> new RuntimeException("Category not found")))
-	                .collect(Collectors.toSet());
+		    obj.setCategory(categoriesPersistidas);
 
-	        savedBook.getCategory().addAll(persistentCategories);
-	    }
-
-	    return bookrepository.save(savedBook);
-	}
+		    return bookRepository.save(obj);
+		}
 }

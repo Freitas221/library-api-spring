@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -35,7 +36,7 @@ public class Book implements Serializable{
 	@JoinColumn(name = "publisher_id")
 	private Publisher publisher;
 	
-	@ManyToMany
+	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST })
 	@JoinTable(name = "book_category", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
 	private Set<Category> category = new HashSet<>();
 	
@@ -84,6 +85,13 @@ public class Book implements Serializable{
 		return category;
 	}
 	
+	public void setCategory(Set<Category> category) {
+	    if (category != null) {
+	        this.category.clear();
+	        this.category.addAll(category);
+	    }
+	} // does not replace the reference, just adds elements
+	
 	public Author getAuthor() {
 		return author;
 	}
@@ -108,6 +116,5 @@ public class Book implements Serializable{
 		Book other = (Book) obj;
 		return Objects.equals(id, other.id);
 	}
-	
-	
+
 }
