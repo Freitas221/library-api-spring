@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.marcos.biblioteca.project.model.Author;
-import com.marcos.biblioteca.project.service.AuthorService;
+import com.marcos.biblioteca.project.services.AuthorService;
 
 @RestController
 @RequestMapping(value = "/authors")

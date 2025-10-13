@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.marcos.biblioteca.project.model.Publisher;
-import com.marcos.biblioteca.project.service.PublisherService;
+import com.marcos.biblioteca.project.services.PublisherService;
 
 @RestController
 @RequestMapping(value = "publishers")

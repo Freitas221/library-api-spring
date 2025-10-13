@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.marcos.biblioteca.project.model.Category;
-import com.marcos.biblioteca.project.service.CategoryService;
+import com.marcos.biblioteca.project.services.CategoryService;
 
 @RestController
 @RequestMapping(value = "/categories")

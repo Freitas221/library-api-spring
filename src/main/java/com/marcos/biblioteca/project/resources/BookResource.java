@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.marcos.biblioteca.project.model.Book;
-import com.marcos.biblioteca.project.service.BookService;
+import com.marcos.biblioteca.project.services.BookService;
 
 @RestController
 @RequestMapping(value = "/books")
