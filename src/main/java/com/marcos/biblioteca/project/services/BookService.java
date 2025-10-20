@@ -16,6 +16,7 @@ import com.marcos.biblioteca.project.repositories.AuthorRepository;
 import com.marcos.biblioteca.project.repositories.BookRepository;
 import com.marcos.biblioteca.project.repositories.CategoryRepository;
 import com.marcos.biblioteca.project.repositories.PublisherRepository;
+import com.marcos.biblioteca.project.services.exception.CategoryNotFoundException;
 import com.marcos.biblioteca.project.services.exception.ResourceNotFoundException;
 
 import jakarta.transaction.Transactional;
@@ -58,7 +59,7 @@ public class BookService {
 		    
 		    Set<Category> categoriesPersistidas = obj.getCategory().stream()
 		            .map(cat -> categoryRepository.findById(cat.getId())
-		                    .orElseThrow(() -> new ResourceNotFoundException(obj.getId()))) //verificar se está certo
+		                    .orElseThrow(() -> new CategoryNotFoundException()))
 		            .collect(Collectors.toSet());
 
 		    obj.setCategory(categoriesPersistidas);
