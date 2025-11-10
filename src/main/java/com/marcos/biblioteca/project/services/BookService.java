@@ -45,26 +45,29 @@ public class BookService {
 		Optional<Book> obj = bookRepository.findById(id);
 		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
-	
+
 	@Transactional
 	public Book insert(Book obj) {
 
-		    Author author = authorRepository.findById(obj.getAuthor().getId())
-		            .orElseThrow(() -> new RuntimeException("Author not found"));
+		Author author = authorRepository.findById(obj.getAuthor().getId())
+				.orElseThrow(() -> new RuntimeException("Author not found"));
 
-		    Publisher publisher = publisherRepository.findById(obj.getPublisher().getId())
-		            .orElseThrow(() -> new PublisherResourceNotFoundException());
+		Long publisherId = obj.getPublisher().getId();
 
-		    obj.setAuthor(author);
-		    obj.setPublisher(publisher);
-		    
-		    Set<Category> categoriesPersistidas = obj.getCategory().stream()
-		            .map(cat -> categoryRepository.findById(cat.getId())
-		                    .orElseThrow(() -> new CategoryNotFoundException()))
-		            .collect(Collectors.toSet());
+		Publisher publisher = publisherRepository.findById(publisherId)
+				.orElseThrow(() -> new PublisherResourceNotFoundException(publisherId));
 
-		    obj.setCategory(categoriesPersistidas);
+		obj.setAuthor(author);
+		obj.setPublisher(publisher);
 
-		    return bookRepository.save(obj);
-		}
+		Set<Long> categoryId = obj.getCategory().stream().map(cat -> cat.getId()).collect(Collectors.toSet());
+		
+		Set<Category> categoriesPersistidas = obj.getCategory().stream().map(cat -> categoryRepository
+				.findById(cat.getId()).orElseThrow(() -> new CategoryNotFoundException(categoryId)))
+				.collect(Collectors.toSet());
+
+		obj.setCategory(categoriesPersistidas);
+
+		return bookRepository.save(obj);
+	}
 }
