@@ -17,6 +17,7 @@ import com.marcos.biblioteca.project.repositories.BookRepository;
 import com.marcos.biblioteca.project.repositories.CategoryRepository;
 import com.marcos.biblioteca.project.repositories.PublisherRepository;
 import com.marcos.biblioteca.project.services.exception.CategoryNotFoundException;
+import com.marcos.biblioteca.project.services.exception.PublisherResourceNotFoundException;
 import com.marcos.biblioteca.project.services.exception.ResourceNotFoundException;
 
 import jakarta.transaction.Transactional;
@@ -52,7 +53,7 @@ public class BookService {
 		            .orElseThrow(() -> new RuntimeException("Author not found"));
 
 		    Publisher publisher = publisherRepository.findById(obj.getPublisher().getId())
-		            .orElseThrow(() -> new RuntimeException("Publisher not found"));
+		            .orElseThrow(() -> new PublisherResourceNotFoundException());
 
 		    obj.setAuthor(author);
 		    obj.setPublisher(publisher);
