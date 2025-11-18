@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.marcos.biblioteca.project.services.exception.CategoryNotFoundException;
+import com.marcos.biblioteca.project.services.exception.DatabaseException;
 import com.marcos.biblioteca.project.services.exception.PublisherResourceNotFoundException;
 import com.marcos.biblioteca.project.services.exception.ResourceNotFoundException;
 
@@ -42,5 +43,15 @@ public class ResourceExceptionHandler {
 		StandardError sr3 = new StandardError(Instant.now(), status.value(), error, e.getMessage(), request.getRequestURI());
 		
 		return ResponseEntity.status(status).body(sr3);
+	}
+	
+	@ExceptionHandler(DatabaseException.class)
+	public ResponseEntity<StandardError> databaseException(DatabaseException e, HttpServletRequest request) {
+		String error = ("Referential integrity");
+		HttpStatus status = HttpStatus.CONFLICT;
+		
+		StandardError sr4 = new StandardError(Instant.now(), status.value(), error, e.getMessage(), request.getRequestURI());
+		
+		return ResponseEntity.status(status).body(sr4);
 	}
 }

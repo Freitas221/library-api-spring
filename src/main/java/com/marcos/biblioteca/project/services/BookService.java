@@ -20,6 +20,8 @@ import com.marcos.biblioteca.project.services.exception.CategoryNotFoundExceptio
 import com.marcos.biblioteca.project.services.exception.PublisherResourceNotFoundException;
 import com.marcos.biblioteca.project.services.exception.ResourceNotFoundException;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -36,6 +38,9 @@ public class BookService {
 
 	@Autowired
 	private PublisherRepository publisherRepository;
+	
+	@PersistenceContext
+	private EntityManager entityManager;
 
 	public List<Book> findAll() {
 		return bookRepository.findAll();
@@ -53,7 +58,6 @@ public class BookService {
 				.orElseThrow(() -> new RuntimeException("Author not found"));
 
 		Long publisherId = obj.getPublisher().getId();
-
 		Publisher publisher = publisherRepository.findById(publisherId)
 				.orElseThrow(() -> new PublisherResourceNotFoundException(publisherId));
 
@@ -61,7 +65,6 @@ public class BookService {
 		obj.setPublisher(publisher);
 
 		Set<Long> categoryId = obj.getCategory().stream().map(cat -> cat.getId()).collect(Collectors.toSet());
-		
 		Set<Category> categoriesPersistidas = obj.getCategory().stream().map(cat -> categoryRepository
 				.findById(cat.getId()).orElseThrow(() -> new CategoryNotFoundException(categoryId)))
 				.collect(Collectors.toSet());
@@ -69,5 +72,14 @@ public class BookService {
 		obj.setCategory(categoriesPersistidas);
 
 		return bookRepository.save(obj);
+	}
+	
+	@Transactional
+	public void delete(Long id) {
+	    if (!bookRepository.existsById(id)) {
+	        throw new ResourceNotFoundException(id);
+	    }
+
+	    bookRepository.deleteById(id);
 	}
 }
