@@ -21,19 +21,21 @@ API RESTful desenvolvida com **Spring Boot** para gerenciamento de uma bibliotec
 - ✅ Consulta de disponibilidade de exemplares
 
 ## 🧱 Estrutura do projeto
-  src/
-├── main/
-│ ├── java/
-│ │ └── com.freitas.virtuallibrary
-│ │ ├── entities
-│ │ ├── repositories
-│ │ ├── resources
-│ │ ├── services
-│ │ └── exceptions
-│ └── resources/
-│ ├── application.properties
-│ └── data.sql (opcional)
-└── test/
+src/main/java
+└── com.marcos.biblioteca.project
+├── ProjectApplication.java # Classe principal do Spring Boot
+├── config/ # Configurações do projeto
+├── model/ # Entidades JPA (Author, Book, Category, Publisher)
+├── repositories/ # Interfaces do Spring Data JPA
+├── resources/ # Controladores REST
+│ └── exceptions/ # Tratamento de exceções e erros HTTP
+├── services/ # Camada de serviços (lógica de negócio)
+│ └── exceptions/ # Exceções personalizadas de serviço
+src/main/resources
+├── application.properties
+├── application-test.properties
+Dockerfile
+docker-compose.yml
 
 ## 🔗 Endpoints básicos
 
@@ -53,3 +55,62 @@ API RESTful desenvolvida com **Spring Boot** para gerenciamento de uma bibliotec
 
 ```bash
 git clone https://github.com/seu-usuario/virtual-library-api.git
+```
+
+## 💻 Executar Localmente (com Docker🐋)
+
+**Configure o dockerfile**
+
+````
+FROM maven:3.8.4-eclipse-temurin-17 AS build
+
+COPY src /app/src
+COPY pom.xml /app
+
+WORKDIR /app
+RUN mvn clean package -DskipTests
+
+FROM openjdk:17-jdk-slim
+
+COPY --from=build /app/target/*.jar /app/app.jar
+
+WORKDIR /app
+
+EXPOSE 8080
+
+CMD ["java", "-jar", "app.jar"]
+
+````
+
+## 💻 Executar Localmente (sem Docker)
+
+**Configure o (application.properties)**
+````
+spring.application.name=project
+
+spring.profiles.active=test 
+
+spring.jpa.open-in-view=true
+
+spring.h2.console.enabled=true
+
+spring.h2.console.path=/h2-console
+
+
+Compile e execute o projeto:
+
+mvn spring-boot:run
+
+
+A aplicação será iniciada em:
+
+http://localhost:8080
+````
+
+🧑‍💻 Autor
+
+Marcos Freitas Rocha
+Desenvolvedor Java | Spring Boot | Docker | JavaScript | HTML5 e CSS3 | 
+
+📧 (marcosfreitas7542@gmail.com)
+🌐 (https://github.com/Freitas221)
