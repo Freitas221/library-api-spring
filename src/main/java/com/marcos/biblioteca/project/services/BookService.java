@@ -21,6 +21,7 @@ import com.marcos.biblioteca.project.services.exception.PublisherResourceNotFoun
 import com.marcos.biblioteca.project.services.exception.ResourceNotFoundException;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 
@@ -79,7 +80,40 @@ public class BookService {
 	    if (!bookRepository.existsById(id)) {
 	        throw new ResourceNotFoundException(id);
 	    }
-
+	    
 	    bookRepository.deleteById(id);
 	}
+	
+	@Transactional
+	public Book update(Long id, Book obj) {
+		try {
+			Book entity = bookRepository.getReferenceById(id);
+			updateData(entity, obj);			
+			return bookRepository.save(entity);		
+			
+		}catch(EntityNotFoundException e) {
+			throw new ResourceNotFoundException(id);
+		}
+	}
+	
+	public void updateData(Book entity, Book obj) {
+		entity.setTitulo(obj.getTitulo());
+		entity.setPublication(obj.getPublication());
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
