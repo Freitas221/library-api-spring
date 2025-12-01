@@ -7,28 +7,36 @@ import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "tb_author")
-public class Author implements Serializable{
+public class Author implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
+	@NotBlank(message = "O nome não pode ser vazio.")
+	@Column(nullable = false)
 	private String nome;
+
+	@NotBlank(message = "A nacionalidade não pode ser vazia.")
+	@Column(nullable = false)
 	private String nacionalidade;
-	
+
 	@JsonIgnore
 	@OneToMany(mappedBy = "author")
 	List<Book> book = new ArrayList<>();
-	
+
 	public Author() {
 	}
 
@@ -62,8 +70,8 @@ public class Author implements Serializable{
 	public void setNacionalidade(String nacionalidade) {
 		this.nacionalidade = nacionalidade;
 	}
-	
-	public List<Book> getBook(){
+
+	public List<Book> getBook() {
 		return book;
 	}
 
@@ -83,6 +91,5 @@ public class Author implements Serializable{
 		Author other = (Author) obj;
 		return Objects.equals(id, other.id);
 	}
-	
-	
+
 }
