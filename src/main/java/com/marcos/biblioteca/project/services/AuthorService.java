@@ -4,10 +4,13 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.marcos.biblioteca.project.model.Author;
 import com.marcos.biblioteca.project.repositories.AuthorRepository;
+import com.marcos.biblioteca.project.services.exception.DatabaseException;
+import com.marcos.biblioteca.project.services.exception.ResourceNotFoundException;
 
 @Service
 public class AuthorService {
@@ -27,4 +30,16 @@ public class AuthorService {
 	public Author insert(Author obj) {
 		return repository.save(obj);
 	}
+	
+
+	public void delete(Long id) {
+		try {
+			if(!repository.existsById(id)) {
+				throw new ResourceNotFoundException(id);
+			}
+			repository.deleteById(id);
+		}catch(DataIntegrityViolationException e) {
+			throw new DatabaseException("Violation of referential integrity.");
+		}
+	} //commit - 1
 }
