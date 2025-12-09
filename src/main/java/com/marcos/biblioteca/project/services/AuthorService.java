@@ -12,6 +12,8 @@ import com.marcos.biblioteca.project.repositories.AuthorRepository;
 import com.marcos.biblioteca.project.services.exception.DatabaseException;
 import com.marcos.biblioteca.project.services.exception.ResourceNotFoundException;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Service
 public class AuthorService {
 	
@@ -42,4 +44,19 @@ public class AuthorService {
 			throw new DatabaseException("Violation of referential integrity.");
 		}
 	} //commit - 1
+	
+	public Author update(Long id, Author obj) {
+		try {
+			Author author = repository.getReferenceById(id);
+			updatedData(author, obj);
+			return repository.save(author);
+		}catch(EntityNotFoundException e) {
+			throw new ResourceNotFoundException(id);
+		}
+	}
+	
+	public void updatedData(Author author, Author obj) {
+		author.setNome(obj.getNome());
+		author.setNacionalidade(obj.getNacionalidade());
+	}//commit - 2
 }
