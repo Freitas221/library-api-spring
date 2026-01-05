@@ -16,8 +16,6 @@ import com.marcos.biblioteca.project.repositories.AuthorRepository;
 import com.marcos.biblioteca.project.repositories.BookRepository;
 import com.marcos.biblioteca.project.repositories.CategoryRepository;
 import com.marcos.biblioteca.project.repositories.PublisherRepository;
-import com.marcos.biblioteca.project.services.exception.CategoryNotFoundException;
-import com.marcos.biblioteca.project.services.exception.PublisherResourceNotFoundException;
 import com.marcos.biblioteca.project.services.exception.ResourceNotFoundException;
 
 import jakarta.persistence.EntityManager;
@@ -49,25 +47,24 @@ public class BookService {
 
 	public Book findById(Long id) {
 		Optional<Book> obj = bookRepository.findById(id);
-		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
+		return obj.orElseThrow(() -> new ResourceNotFoundException("Book", id));
 	}
 
 	@Transactional
 	public Book insert(Book obj) {
 
 		Author author = authorRepository.findById(obj.getAuthor().getId())
-				.orElseThrow(() -> new RuntimeException("Author not found"));
+				.orElseThrow(() -> new ResourceNotFoundException("Author", obj.getAuthor().getId() + "during an insertion"));
 
 		Long publisherId = obj.getPublisher().getId();
 		Publisher publisher = publisherRepository.findById(publisherId)
-				.orElseThrow(() -> new PublisherResourceNotFoundException(publisherId));
+				.orElseThrow(() -> new ResourceNotFoundException("Publisher", obj.getAuthor().getId() + "during an insertion"));
 
 		obj.setAuthor(author);
 		obj.setPublisher(publisher);
 
-		Set<Long> categoryId = obj.getCategory().stream().map(cat -> cat.getId()).collect(Collectors.toSet());
 		Set<Category> categoriesPersistidas = obj.getCategory().stream().map(cat -> categoryRepository
-				.findById(cat.getId()).orElseThrow(() -> new CategoryNotFoundException(categoryId)))
+				.findById(cat.getId()).orElseThrow(() -> new ResourceNotFoundException("Category", cat.getId(), "during an insertion")))
 				.collect(Collectors.toSet());
 
 		obj.setCategory(categoriesPersistidas);
@@ -78,7 +75,7 @@ public class BookService {
 	@Transactional
 	public void delete(Long id) {
 	    if (!bookRepository.existsById(id)) {
-	        throw new ResourceNotFoundException(id);
+	        throw new ResourceNotFoundException("Book ", id);
 	    }
 	    
 	    bookRepository.deleteById(id);
@@ -92,7 +89,7 @@ public class BookService {
 			
 			return bookRepository.save(entity);	
 		}catch(EntityNotFoundException e) {
-			throw new ResourceNotFoundException(id);
+			throw new ResourceNotFoundException("Book ", id);
 		}
 	}
 	
