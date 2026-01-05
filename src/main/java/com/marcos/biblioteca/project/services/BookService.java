@@ -88,9 +88,9 @@ public class BookService {
 	public Book update(Long id, Book obj) {
 		try {
 			Book entity = bookRepository.getReferenceById(id);
-			updateData(entity, obj);			
-			return bookRepository.save(entity);		
+			updateData(entity, obj);
 			
+			return bookRepository.save(entity);	
 		}catch(EntityNotFoundException e) {
 			throw new ResourceNotFoundException(id);
 		}

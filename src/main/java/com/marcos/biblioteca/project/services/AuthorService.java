@@ -48,14 +48,15 @@ public class AuthorService {
 	public Author update(Long id, Author obj) {
 		try {
 			Author author = repository.getReferenceById(id);
-			updatedData(author, obj);
+			updatedAuthor(author, obj);
+			
 			return repository.save(author);
 		}catch(EntityNotFoundException e) {
 			throw new ResourceNotFoundException(id);
 		}
-	}
+	}	
 	
-	public void updatedData(Author author, Author obj) {
+	public void updatedAuthor(Author author, Author obj) {
 		author.setNome(obj.getNome());
 		author.setNacionalidade(obj.getNacionalidade());
 	}//commit - 2
