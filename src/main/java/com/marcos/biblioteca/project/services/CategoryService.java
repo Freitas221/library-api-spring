@@ -36,7 +36,7 @@ public class CategoryService {
 	public void delete(Long id) {
 		try {
 			if(!repository.existsById(id)) {
-				throw new ResourceNotFoundException(id);
+				throw new ResourceNotFoundException("Category", id, "during the deletion");
 			}	
 			repository.deleteById(id);
 			
@@ -52,7 +52,7 @@ public class CategoryService {
 			
 			return repository.save(entity);
 		}catch(EntityNotFoundException e) {
-			throw new ResourceNotFoundException(id);
+			throw new ResourceNotFoundException("Category", id);
 		}
 	}
 	

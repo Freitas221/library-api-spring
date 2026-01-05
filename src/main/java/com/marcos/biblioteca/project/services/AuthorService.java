@@ -37,7 +37,7 @@ public class AuthorService {
 	public void delete(Long id) {
 		try {
 			if(!repository.existsById(id)) {
-				throw new ResourceNotFoundException("Author", id);
+				throw new ResourceNotFoundException("Author", id, "during the deletion");
 			}
 			repository.deleteById(id);
 		}catch(DataIntegrityViolationException e) {

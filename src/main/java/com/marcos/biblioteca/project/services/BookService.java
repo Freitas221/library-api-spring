@@ -54,11 +54,11 @@ public class BookService {
 	public Book insert(Book obj) {
 
 		Author author = authorRepository.findById(obj.getAuthor().getId())
-				.orElseThrow(() -> new ResourceNotFoundException("Author", obj.getAuthor().getId() + "during an insertion"));
+				.orElseThrow(() -> new ResourceNotFoundException("Author", obj.getAuthor().getId(), "during an insertion"));
 
 		Long publisherId = obj.getPublisher().getId();
 		Publisher publisher = publisherRepository.findById(publisherId)
-				.orElseThrow(() -> new ResourceNotFoundException("Publisher", obj.getAuthor().getId() + "during an insertion"));
+				.orElseThrow(() -> new ResourceNotFoundException("Publisher", publisherId, "during an insertion"));
 
 		obj.setAuthor(author);
 		obj.setPublisher(publisher);
@@ -75,7 +75,7 @@ public class BookService {
 	@Transactional
 	public void delete(Long id) {
 	    if (!bookRepository.existsById(id)) {
-	        throw new ResourceNotFoundException("Book ", id);
+	        throw new ResourceNotFoundException("Book", id, "during the deletion");
 	    }
 	    
 	    bookRepository.deleteById(id);

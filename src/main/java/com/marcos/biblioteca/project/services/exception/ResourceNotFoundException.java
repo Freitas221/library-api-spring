@@ -8,7 +8,7 @@ public class ResourceNotFoundException extends RuntimeException {
     }
 	
 	public ResourceNotFoundException(String resource, Object id, String context) {
-		super(resource + " not found. Id: " + id + " (" + context + ")");
+		super(resource + " not found. Id: " + id + " (" + context + ")"); //revision
 	}
 
 }
