@@ -37,13 +37,13 @@ public class AuthorService {
 	public void delete(Long id) {
 		try {
 			if(!repository.existsById(id)) {
-				throw new ResourceNotFoundException(id);
+				throw new ResourceNotFoundException("Author", id);
 			}
 			repository.deleteById(id);
 		}catch(DataIntegrityViolationException e) {
 			throw new DatabaseException("Violation of referential integrity.");
 		}
-	} //commit - 1
+	}
 	
 	public Author update(Long id, Author obj) {
 		try {
@@ -52,12 +52,12 @@ public class AuthorService {
 			
 			return repository.save(author);
 		}catch(EntityNotFoundException e) {
-			throw new ResourceNotFoundException(id);
+			throw new ResourceNotFoundException("Author", id);
 		}
 	}	
 	
 	public void updatedAuthor(Author author, Author obj) {
 		author.setNome(obj.getNome());
 		author.setNacionalidade(obj.getNacionalidade());
-	}//commit - 2
+	}
 }
