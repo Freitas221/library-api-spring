@@ -25,8 +25,7 @@ public class AuthorService {
 	}
 	
 	public Author findById(Long id) {
-		Optional<Author> obj = repository.findById(id);
-		return obj.get();
+		return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Author", id));
 	}
 	
 	public Author insert(Author obj) {

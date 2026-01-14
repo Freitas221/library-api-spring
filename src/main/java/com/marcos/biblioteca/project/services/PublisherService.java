@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.marcos.biblioteca.project.model.Publisher;
 import com.marcos.biblioteca.project.repositories.PublisherRepository;
+import com.marcos.biblioteca.project.services.exception.ResourceNotFoundException;
 
 @Service
 public class PublisherService {
@@ -20,7 +21,6 @@ public class PublisherService {
 	}
 	
 	public Publisher findById(Long id) {
-		Optional<Publisher> obj = repository.findById(id);
-		return obj.get();
+		return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Publisher", id));
 	}
 }

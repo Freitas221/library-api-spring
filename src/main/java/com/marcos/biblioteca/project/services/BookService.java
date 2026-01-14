@@ -46,8 +46,7 @@ public class BookService {
 	}
 
 	public Book findById(Long id) {
-		Optional<Book> obj = bookRepository.findById(id);
-		return obj.orElseThrow(() -> new ResourceNotFoundException("Book", id));
+		return bookRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Book", id));
 	}
 
 	@Transactional
