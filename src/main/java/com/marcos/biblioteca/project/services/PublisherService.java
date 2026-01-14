@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.marcos.biblioteca.project.model.Publisher;
 import com.marcos.biblioteca.project.repositories.PublisherRepository;
+import com.marcos.biblioteca.project.services.exception.DatabaseException;
 import com.marcos.biblioteca.project.services.exception.ResourceNotFoundException;
 
 @Service
@@ -23,4 +25,17 @@ public class PublisherService {
 	public Publisher findById(Long id) {
 		return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Publisher", id));
 	}
+	
+	public void delete(Long id) {
+		try {
+			if(!repository.existsById(id)) {
+				throw new ResourceNotFoundException("Publisher", id, "during the deletion");
+			}
+			repository.deleteById(id);;
+			
+		}catch(DataIntegrityViolationException e) {
+			throw new DatabaseException("Violation of referential integrity.");
+		}
+	}
+	
 }
