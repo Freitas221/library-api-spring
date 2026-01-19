@@ -12,32 +12,53 @@ import com.marcos.biblioteca.project.repositories.PublisherRepository;
 import com.marcos.biblioteca.project.services.exception.DatabaseException;
 import com.marcos.biblioteca.project.services.exception.ResourceNotFoundException;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Service
 public class PublisherService {
 
 	@Autowired
 	private PublisherRepository repository;
-	
+
 	public List<Publisher> findAll() {
 		return repository.findAll();
 	}
-	
+
 	public Publisher findById(Long id) {
 		return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Publisher", id));
 	}
-	
+
 	public Publisher insert(Publisher obj) {
 		return repository.save(obj);
-	} 
-	
+	}
+
 	public void delete(Long id) {
 		try {
-			repository.deleteById(id);;
-		}catch(DataIntegrityViolationException e) {
+			repository.deleteById(id);
+			;
+		} catch (DataIntegrityViolationException e) {
 			throw new DatabaseException("Violation of referential integrity.");
-			
-		}catch(EmptyResultDataAccessException e) {
+
+		} catch (EmptyResultDataAccessException e) {
 			throw new ResourceNotFoundException("Publisher", id, "during the deletion");
 		} // Implement this solution in the other classes as well. (Make commits)
 	}
+
+	public Publisher update(Long id, Publisher obj) {
+
+		try {
+			Publisher entity = repository.getReferenceById(id);
+			updateData(entity, obj);
+
+			return entity;
+
+		} catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException("Publihser", id);
+		}
+	}
+
+	public void updateData(Publisher entity, Publisher obj) {
+		entity.setName(obj.getName());
+	}
+
 }
