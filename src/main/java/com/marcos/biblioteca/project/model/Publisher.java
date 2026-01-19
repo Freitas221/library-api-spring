@@ -17,7 +17,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "tb_publisher")
 public class Publisher implements Serializable{
-	private static final long serialVersionUID = 1L;  //Apagar excessões personalizadas
+	private static final long serialVersionUID = 1L;  
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
