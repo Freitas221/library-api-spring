@@ -38,7 +38,7 @@ public class PublisherResource {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Publisher> insert(@PathVariable Publisher publisher) {
+	public ResponseEntity<Publisher> insert(@RequestBody Publisher publisher) {
 		Publisher obj = service.insert(publisher);
 		
 		URI uri = ServletUriComponentsBuilder

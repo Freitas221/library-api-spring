@@ -35,7 +35,7 @@ public class PublisherService {
 	public void delete(Long id) {
 		try {
 			repository.deleteById(id);
-			;
+			
 		} catch (DataIntegrityViolationException e) {
 			throw new DatabaseException("Violation of referential integrity.");
 
@@ -50,8 +50,8 @@ public class PublisherService {
 			Publisher entity = repository.getReferenceById(id);
 			updateData(entity, obj);
 
-			return entity;
-
+			return repository.save(entity);
+			
 		} catch (EntityNotFoundException e) {
 			throw new ResourceNotFoundException("Publihser", id);
 		}
