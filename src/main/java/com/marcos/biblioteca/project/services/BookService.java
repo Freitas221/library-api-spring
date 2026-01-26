@@ -5,6 +5,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.marcos.biblioteca.project.model.Author;
@@ -70,13 +71,12 @@ public class BookService {
 		return bookRepository.save(obj);
 	}
 	
-	@Transactional
 	public void delete(Long id) {
-	    if (!bookRepository.existsById(id)) {
+	    try {
+	    	bookRepository.deleteById(id);
+	    }catch(EmptyResultDataAccessException e) {
 	        throw new ResourceNotFoundException("Book", id, "during the deletion");
 	    }
-	    
-	    bookRepository.deleteById(id);
 	}
 	
 	@Transactional

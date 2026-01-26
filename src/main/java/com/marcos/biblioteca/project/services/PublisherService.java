@@ -41,7 +41,7 @@ public class PublisherService {
 
 		} catch (EmptyResultDataAccessException e) {
 			throw new ResourceNotFoundException("Publisher", id, "during the deletion");
-		} // Implement this solution in the other classes as well. (Make commits)
+		} 
 	}
 
 	public Publisher update(Long id, Publisher obj) {

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.marcos.biblioteca.project.model.Author;
@@ -34,12 +35,13 @@ public class AuthorService {
 
 	public void delete(Long id) {
 		try {
-			if(!repository.existsById(id)) {
-				throw new ResourceNotFoundException("Author", id, "during the deletion");
-			}
 			repository.deleteById(id);
+			
 		}catch(DataIntegrityViolationException e) {
 			throw new DatabaseException("Violation of referential integrity.");
+			
+		}catch(EmptyResultDataAccessException e) {
+			throw new ResourceNotFoundException("Author", id, "during the deletion");
 		}
 	}
 	
