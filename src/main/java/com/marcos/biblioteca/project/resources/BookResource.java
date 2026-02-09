@@ -18,6 +18,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.marcos.biblioteca.project.model.Book;
 import com.marcos.biblioteca.project.services.BookService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping(value = "/books")
 public class BookResource {
@@ -38,7 +40,7 @@ public class BookResource {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Book> insert(@RequestBody Book obj) {
+	public ResponseEntity<Book> insert(@Valid @RequestBody Book obj) {
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder
 				.fromCurrentRequest()

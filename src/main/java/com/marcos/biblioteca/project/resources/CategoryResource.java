@@ -18,6 +18,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.marcos.biblioteca.project.model.Category;
 import com.marcos.biblioteca.project.services.CategoryService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping(value = "/categories")
 public class CategoryResource {
@@ -38,7 +40,7 @@ public class CategoryResource {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Category> insert(@RequestBody Category category) {
+	public ResponseEntity<Category> insert(@Valid @RequestBody Category category) {
 		Category obj = service.insert(category);
 		
 		URI uri = ServletUriComponentsBuilder

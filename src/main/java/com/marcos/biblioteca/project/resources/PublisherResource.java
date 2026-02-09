@@ -18,6 +18,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.marcos.biblioteca.project.model.Publisher;
 import com.marcos.biblioteca.project.services.PublisherService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping(value = "publishers")
 public class PublisherResource {
@@ -38,7 +40,7 @@ public class PublisherResource {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Publisher> insert(@RequestBody Publisher publisher) {
+	public ResponseEntity<Publisher> insert(@Valid @RequestBody Publisher publisher) {
 		Publisher obj = service.insert(publisher);
 		
 		URI uri = ServletUriComponentsBuilder

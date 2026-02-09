@@ -18,6 +18,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.marcos.biblioteca.project.model.Author;
 import com.marcos.biblioteca.project.services.AuthorService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping(value = "/authors")
 public class AuthorResource {
@@ -38,7 +40,7 @@ public class AuthorResource {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Author> insert(@RequestBody Author author) {
+	public ResponseEntity<Author> insert(@Valid @RequestBody Author author) {
 		Author obj = service.insert(author);
 		
 		URI uri = ServletUriComponentsBuilder

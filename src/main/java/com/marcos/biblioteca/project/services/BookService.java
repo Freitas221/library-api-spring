@@ -18,9 +18,7 @@ import com.marcos.biblioteca.project.repositories.CategoryRepository;
 import com.marcos.biblioteca.project.repositories.PublisherRepository;
 import com.marcos.biblioteca.project.services.exception.ResourceNotFoundException;
 
-import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -37,9 +35,6 @@ public class BookService {
 
 	@Autowired
 	private PublisherRepository publisherRepository;
-	
-	@PersistenceContext
-	private EntityManager entityManager;
 
 	public List<Book> findAll() {
 		return bookRepository.findAll();
