@@ -49,6 +49,6 @@ public class ResourceExceptionHandler {
 	    
 	    StandardError sr = new StandardError(Instant.now(), status.value(), error, message, request.getRequestURI());
 		
-	    return ResponseEntity.status(status).body(sr); //Perform commit
+	    return ResponseEntity.status(status).body(sr);
 	}
 }

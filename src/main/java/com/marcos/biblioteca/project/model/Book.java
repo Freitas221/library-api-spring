@@ -19,7 +19,9 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor //Perform commit
 @Entity
 @Table(name = "tb_book")
 public class Book implements Serializable{
