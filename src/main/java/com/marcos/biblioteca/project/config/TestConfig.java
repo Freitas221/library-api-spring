@@ -48,20 +48,18 @@ public class TestConfig implements CommandLineRunner {
 		Category category3 = new Category(null, "Ficção");
 		
 		categoryRepository.saveAll(Arrays.asList(category1, category2, category3));
-		
-		Book book1 = new Book(null, "A Rosa do povo",LocalDate.of(1945, 10, 25));
-		Book book2 = new Book(null, "Romeu e Julieta",LocalDate.of(1997, 5, 10));
-		Book book3 = new Book(null, "O Homem que ri",LocalDate.of(1869, 4, 25));
-		Book book4 = new Book(null, "Laços de família",LocalDate.of(1960, 6, 7));
-		
-		bookRepository.saveAll(Arrays.asList(book1, book2, book3, book4));
-				
+						
 		Publisher publisher1 = new Publisher(null, "Editorial Record");
 		Publisher publisher2 = new Publisher(null, "Penguin-Companhia");
 		Publisher publisher3 = new Publisher(null, "Martin Claret");
 		Publisher publisher4 = new Publisher(null, "Rocco Digital");
 		
 		publisherRepository.saveAll(Arrays.asList(publisher1, publisher2, publisher3, publisher4));
+		
+		Book book1 = new Book(null, "A Rosa do povo",LocalDate.of(1945, 10, 25));
+		Book book2 = new Book(null, "Romeu e Julieta",LocalDate.of(1997, 5, 10));
+		Book book3 = new Book(null, "O Homem que ri",LocalDate.of(1869, 4, 25));
+		Book book4 = new Book(null, "Laços de família",LocalDate.of(1960, 6, 7));
 		
 		book1.getCategory().add(category1);
 		book2.getCategory().add(category2);

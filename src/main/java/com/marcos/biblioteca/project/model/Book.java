@@ -6,7 +6,6 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,7 +20,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor //Perform commit
+@NoArgsConstructor  
 @Entity
 @Table(name = "tb_book")
 public class Book implements Serializable{
@@ -39,16 +38,19 @@ public class Book implements Serializable{
 	@Column(nullable = false)
 	private LocalDate publication;
 	
+	@NotNull
 	@ManyToOne
-	@JoinColumn(name = "autor_id")
+	@JoinColumn(name = "autor_id", nullable = false)
 	private Author author;
 	
+	@NotNull
 	@ManyToOne
-	@JoinColumn(name = "publisher_id")
+	@JoinColumn(name = "publisher_id", nullable = false)
 	private Publisher publisher;
 	
-	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST })
-	@JoinTable(name = "book_category", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
+	@NotNull
+	@ManyToMany
+	@JoinTable(name = "book_category", joinColumns = @JoinColumn(name = "book_id", nullable = false), inverseJoinColumns = @JoinColumn(name = "category_id", nullable = false))
 	private Set<Category> category = new HashSet<>();
 	
 	public Book() {
