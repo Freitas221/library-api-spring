@@ -27,6 +27,8 @@ public class Users {
 	@NotBlank(message = "O número não pode ser nulo")
 	@Column(nullable = false, unique = true)
 	private String phone;
+	
+	@NotBlank(message = "A idade não deve ser nula")
 	private Integer age;
 	
 	public Users() {
