@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 
@@ -30,6 +31,9 @@ public class Users {
 	
 	@NotBlank(message = "A idade não deve ser nula")
 	private Integer age;
+	
+	@OneToMany(mappedBy = "users")
+	private Loan loan;
 	
 	public Users() {
 	}
