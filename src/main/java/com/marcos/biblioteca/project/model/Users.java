@@ -1,24 +1,43 @@
 package com.marcos.biblioteca.project.model;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+
+@Entity
+@Table(name = "tb_users")
 public class Users {
 	
-	//Perform commit
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	
+	@NotBlank(message = "O nome não pode ser nulo")
+	@Column(nullable = false)
 	private String name;
+	
+	@NotBlank(message = "O cpf não pode ser nulo")
+	@Column(nullable = false, unique = true)
 	private String cpf;
-	private String number;
+	
+	@NotBlank(message = "O número não pode ser nulo")
+	@Column(nullable = false, unique = true)
 	private String phone;
-	private Integer idade;
+	private Integer age;
 	
 	public Users() {
 	}
 	
-	public Users(String name, String cpf, String number, String phone, Integer idade) {
+	public Users(String name, String cpf, String phone, Integer idade) {
 		
 		this.name = name;
 		this.cpf = cpf;
-		this.number = number;
 		this.phone = phone;
-		this.idade = idade;
+		this.age = idade;
 	}
 	
 	public String getName() {
@@ -37,14 +56,6 @@ public class Users {
 		this.cpf = cpf;
 	}
 
-	public String getNumber() {
-		return number;
-	}
-
-	public void setNumber(String number) {
-		this.number = number;
-	}
-
 	public String getPhone() {
 		return phone;
 	}
@@ -54,11 +65,11 @@ public class Users {
 	}
 
 	public Integer getIdade() {
-		return idade;
+		return age;
 	}
 
 	public void setIdade(Integer idade) {
-		this.idade = idade;
+		this.age = idade;
 	}
 	
 	
