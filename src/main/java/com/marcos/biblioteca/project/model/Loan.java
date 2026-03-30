@@ -4,14 +4,16 @@ import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.marcos.biblioteca.project.enums.LoanStatus;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
@@ -27,8 +29,9 @@ public class Loan {
 	@JsonIgnore
 	private Users users;
 	
-	@NotBlank(message = "O campo status não pode ser nulo")
-	private Integer status;
+	@Enumerated(EnumType.STRING)
+	@NotNull(message = "O campo status não pode ser nulo")
+	private LoanStatus status;
 	
 	@ManyToOne
 	@JoinColumn(nullable = false)
@@ -42,11 +45,11 @@ public class Loan {
 	}
 	
 	
-	public Loan(Users users, Book book, LoanStatus status) {
+	public Loan(Users users, Book book) {
 		this.users = users;
 		this.book = book;
 		this.loanDate = LocalDate.now();
-		setLoanStatus(LoanStatus.valueOf(1));
+		setLoanStatus(LoanStatus.ACTIVE);
 	}
 	
 	public Users getUsers() {
@@ -58,12 +61,12 @@ public class Loan {
 	}
 	
 	public LoanStatus getLoanStatus() {
-		return LoanStatus.valueOf(status);
+		return status;
 	}
 	
 	public void setLoanStatus(LoanStatus status) {
-		if(status != null) {
-			this.status = status.getCode();
+		if(status == null) {
+			throw new IllegalArgumentException("Status não pode ser nulo");
 		}
 	}
 
