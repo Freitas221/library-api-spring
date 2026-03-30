@@ -36,11 +36,7 @@ public class Users {
 	private Integer age;
 	
 	@OneToMany(mappedBy = "users")
-<<<<<<< HEAD
 	private List<Loan> loans = new ArrayList<>();
-=======
-	private Loan loan;
->>>>>>> a1411aa58555a5168f32d69d576abe41bb4b9bfe
 	
 	public Users() {
 	}
