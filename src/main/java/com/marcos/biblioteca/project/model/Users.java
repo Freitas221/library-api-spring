@@ -1,10 +1,14 @@
 package com.marcos.biblioteca.project.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 
@@ -30,6 +34,9 @@ public class Users {
 	
 	@NotBlank(message = "A idade não deve ser nula")
 	private Integer age;
+	
+	@OneToMany(mappedBy = "users")
+	private List<Loan> loans = new ArrayList<>();
 	
 	public Users() {
 	}
