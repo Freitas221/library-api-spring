@@ -12,10 +12,12 @@ import com.marcos.biblioteca.project.model.Author;
 import com.marcos.biblioteca.project.model.Book;
 import com.marcos.biblioteca.project.model.Category;
 import com.marcos.biblioteca.project.model.Publisher;
+import com.marcos.biblioteca.project.model.Users;
 import com.marcos.biblioteca.project.repositories.AuthorRepository;
 import com.marcos.biblioteca.project.repositories.BookRepository;
 import com.marcos.biblioteca.project.repositories.CategoryRepository;
 import com.marcos.biblioteca.project.repositories.PublisherRepository;
+import com.marcos.biblioteca.project.repositories.UsersRepository;
 
 @Configuration
 @Profile("test")
@@ -33,6 +35,9 @@ public class TestConfig implements CommandLineRunner {
 	@Autowired
 	private CategoryRepository categoryRepository;
 	
+	@Autowired
+	private UsersRepository userRepository;
+		
 	@Override
 	public void run(String... args) throws Exception {
 		
@@ -60,7 +65,12 @@ public class TestConfig implements CommandLineRunner {
 		Book book2 = new Book(null, "Romeu e Julieta",LocalDate.of(1997, 5, 10));
 		Book book3 = new Book(null, "O Homem que ri",LocalDate.of(1869, 4, 25));
 		Book book4 = new Book(null, "Laços de família",LocalDate.of(1960, 6, 7));
-
+		
+		Users user1 = new Users("Marcos", "70412730977", "31982492293", 17);
+		Users user2 = new Users("Lara", "30677899475", "31985469878", 10);
+		Users user3 = new Users("Maildes", "36978945877", "31987554877", 34);
+		Users user4 = new Users("Oderlone", "70898745699", "31988874549", 40);
+		
 		
 		book1.getCategory().add(category1);
 		book2.getCategory().add(category2);
@@ -79,7 +89,8 @@ public class TestConfig implements CommandLineRunner {
 		
 		bookRepository.saveAll(Arrays.asList(book1, book2, book3, book4));
 		
-
+		userRepository.saveAll(Arrays.asList(user1, user2, user3, user4));
+		
 	}
 
 }
