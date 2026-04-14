@@ -11,11 +11,13 @@ import org.springframework.context.annotation.Profile;
 import com.marcos.biblioteca.project.model.Author;
 import com.marcos.biblioteca.project.model.Book;
 import com.marcos.biblioteca.project.model.Category;
+import com.marcos.biblioteca.project.model.Loan;
 import com.marcos.biblioteca.project.model.Publisher;
 import com.marcos.biblioteca.project.model.Users;
 import com.marcos.biblioteca.project.repositories.AuthorRepository;
 import com.marcos.biblioteca.project.repositories.BookRepository;
 import com.marcos.biblioteca.project.repositories.CategoryRepository;
+import com.marcos.biblioteca.project.repositories.LoanRepository;
 import com.marcos.biblioteca.project.repositories.PublisherRepository;
 import com.marcos.biblioteca.project.repositories.UsersRepository;
 
@@ -37,7 +39,10 @@ public class TestConfig implements CommandLineRunner {
 	
 	@Autowired
 	private UsersRepository userRepository;
-		
+	
+	@Autowired
+	private LoanRepository loanRepository;
+	
 	@Override
 	public void run(String... args) throws Exception {
 		
@@ -72,6 +77,11 @@ public class TestConfig implements CommandLineRunner {
 		Users user4 = new Users("Oderlone", "70898745699", "31988874549", 40);
 		
 		
+		Loan loan1 = new Loan(user3, book1);
+		Loan loan2 = new Loan(user2, book2);
+		Loan loan3 = new Loan(user4, book4);
+
+		
 		book1.getCategory().add(category1);
 		book2.getCategory().add(category2);
 		book3.getCategory().add(category2);
@@ -91,6 +101,8 @@ public class TestConfig implements CommandLineRunner {
 		
 		userRepository.saveAll(Arrays.asList(user1, user2, user3, user4));
 		
+		loanRepository.saveAll(Arrays.asList(loan1, loan2, loan3));
+
 	}
 
 }
