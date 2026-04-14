@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "tb_users")
@@ -32,7 +33,7 @@ public class Users {
 	@Column(nullable = false, unique = true)
 	private String phone;
 	
-	@NotBlank(message = "A idade não deve ser nula")
+	@NotNull(message = "A idade não deve ser nula")
 	private Integer age;
 	
 	@OneToMany(mappedBy = "users")

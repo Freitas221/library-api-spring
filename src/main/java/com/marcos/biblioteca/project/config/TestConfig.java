@@ -60,6 +60,7 @@ public class TestConfig implements CommandLineRunner {
 		Book book2 = new Book(null, "Romeu e Julieta",LocalDate.of(1997, 5, 10));
 		Book book3 = new Book(null, "O Homem que ri",LocalDate.of(1869, 4, 25));
 		Book book4 = new Book(null, "Laços de família",LocalDate.of(1960, 6, 7));
+
 		
 		book1.getCategory().add(category1);
 		book2.getCategory().add(category2);
@@ -77,6 +78,7 @@ public class TestConfig implements CommandLineRunner {
 		book4.setAuthor(author4);
 		
 		bookRepository.saveAll(Arrays.asList(book1, book2, book3, book4));
+		
 
 	}
 

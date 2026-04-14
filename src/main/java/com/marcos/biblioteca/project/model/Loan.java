@@ -40,10 +40,8 @@ public class Loan {
 	@NotNull
 	private LocalDate loanDate;
 	
-	
 	public Loan() {
 	}
-	
 	
 	public Loan(Users users, Book book) {
 		this.users = users;
@@ -68,6 +66,7 @@ public class Loan {
 		if(status == null) {
 			throw new IllegalArgumentException("Status não pode ser nulo");
 		}
+		this.status = status;
 	}
 
 	public LocalDate getLoanDate() {
