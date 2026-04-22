@@ -53,8 +53,6 @@ public class Book implements Serializable{
 	@JoinTable(name = "book_category", joinColumns = @JoinColumn(name = "book_id", nullable = false), inverseJoinColumns = @JoinColumn(name = "category_id", nullable = false))
 	private Set<Category> category = new HashSet<>();
 	
-	public Book() {
-	}
 
 	public Book(Long id, String titulo, LocalDate publication) {
 		super();

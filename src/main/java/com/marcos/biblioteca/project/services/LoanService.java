@@ -1,6 +1,7 @@
 package com.marcos.biblioteca.project.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.marcos.biblioteca.project.enums.LoanStatus;
 import com.marcos.biblioteca.project.model.Book;
@@ -11,6 +12,7 @@ import com.marcos.biblioteca.project.repositories.LoanRepository;
 import com.marcos.biblioteca.project.repositories.UserRepository;
 import com.marcos.biblioteca.project.services.exception.ResourceNotFoundException;
 
+@Service
 public class LoanService {
 
 	@Autowired
