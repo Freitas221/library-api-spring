@@ -50,6 +50,10 @@ public class Loan {
 		setLoanStatus(LoanStatus.ACTIVE);
 	}
 	
+	public Long getId() {
+		return id;
+	}
+	
 	public User getUser() {
 		return users;
 	}
