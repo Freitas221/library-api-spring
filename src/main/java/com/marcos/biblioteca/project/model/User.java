@@ -15,7 +15,7 @@ import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "tb_users")
-public class Users {
+public class User {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,15 +39,19 @@ public class Users {
 	@OneToMany(mappedBy = "users")
 	private List<Loan> loans = new ArrayList<>();
 	
-	public Users() {
+	public User() {
 	}
 	
-	public Users(String name, String cpf, String phone, Integer idade) {
+	public User(String name, String cpf, String phone, Integer idade) {
 		
 		this.name = name;
 		this.cpf = cpf;
 		this.phone = phone;
 		this.age = idade;
+	}
+	
+	public Long getId() {
+		return id;
 	}
 	
 	public String getName() {

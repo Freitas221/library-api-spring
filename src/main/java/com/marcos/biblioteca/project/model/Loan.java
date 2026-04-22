@@ -27,7 +27,7 @@ public class Loan {
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	@JsonIgnore
-	private Users users;
+	private User users;
 	
 	@Enumerated(EnumType.STRING)
 	@NotNull(message = "O campo status não pode ser nulo")
@@ -43,19 +43,27 @@ public class Loan {
 	public Loan() {
 	}
 	
-	public Loan(Users users, Book book) {
+	public Loan(User users, Book book) {
 		this.users = users;
 		this.book = book;
 		this.loanDate = LocalDate.now();
 		setLoanStatus(LoanStatus.ACTIVE);
 	}
 	
-	public Users getUsers() {
+	public User getUser() {
 		return users;
+	}
+	
+	public void setUser(User user) {
+		this.users = user;
 	}
 	
 	public Book getBook() {
 		return  book;
+	}
+	
+	public void setBook(Book book) {
+		this.book = book;
 	}
 	
 	public LoanStatus getLoanStatus() {

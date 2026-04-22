@@ -13,13 +13,13 @@ import com.marcos.biblioteca.project.model.Book;
 import com.marcos.biblioteca.project.model.Category;
 import com.marcos.biblioteca.project.model.Loan;
 import com.marcos.biblioteca.project.model.Publisher;
-import com.marcos.biblioteca.project.model.Users;
+import com.marcos.biblioteca.project.model.User;
 import com.marcos.biblioteca.project.repositories.AuthorRepository;
 import com.marcos.biblioteca.project.repositories.BookRepository;
 import com.marcos.biblioteca.project.repositories.CategoryRepository;
 import com.marcos.biblioteca.project.repositories.LoanRepository;
 import com.marcos.biblioteca.project.repositories.PublisherRepository;
-import com.marcos.biblioteca.project.repositories.UsersRepository;
+import com.marcos.biblioteca.project.repositories.UserRepository;
 
 @Configuration
 @Profile("test")
@@ -38,7 +38,7 @@ public class TestConfig implements CommandLineRunner {
 	private CategoryRepository categoryRepository;
 	
 	@Autowired
-	private UsersRepository userRepository;
+	private UserRepository userRepository;
 	
 	@Autowired
 	private LoanRepository loanRepository;
@@ -71,10 +71,10 @@ public class TestConfig implements CommandLineRunner {
 		Book book3 = new Book(null, "O Homem que ri",LocalDate.of(1869, 4, 25));
 		Book book4 = new Book(null, "Laços de família",LocalDate.of(1960, 6, 7));
 		
-		Users user1 = new Users("Marcos", "70412730977", "31982492293", 17);
-		Users user2 = new Users("Lara", "30677899475", "31985469878", 10);
-		Users user3 = new Users("Maildes", "36978945877", "31987554877", 34);
-		Users user4 = new Users("Oderlone", "70898745699", "31988874549", 40);
+		User user1 = new User("Marcos", "70412730977", "31982492293", 17);
+		User user2 = new User("Lara", "30677899475", "31985469878", 10);
+		User user3 = new User("Maildes", "36978945877", "31987554877", 34);
+		User user4 = new User("Oderlone", "70898745699", "31988874549", 40);
 		
 		
 		Loan loan1 = new Loan(user3, book1);
