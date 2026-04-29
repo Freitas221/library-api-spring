@@ -47,5 +47,13 @@ public class LoanService {
 		
 		return loanRepository.save(loan);
 	}
+	
+	public void delete(Long obj) {
+		
+		Loan loan = loanRepository.findById(obj)
+				.orElseThrow(() -> new ResourceNotFoundException("Loan not found", obj));
+		
+		loanRepository.delete(loan);
+	}
 
 }

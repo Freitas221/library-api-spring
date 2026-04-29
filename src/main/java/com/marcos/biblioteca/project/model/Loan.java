@@ -13,6 +13,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 
 @Entity
@@ -37,6 +38,8 @@ public class Loan {
 	
 	private LocalDate loanDate;
 	
+	private LocalDate returnDate;
+	
 	public Loan() {
 	}
 	
@@ -45,6 +48,25 @@ public class Loan {
 		this.book = book;
 		this.loanDate = LocalDate.now();
 		setLoanStatus(LoanStatus.ACTIVE);
+	}
+	
+	@PrePersist
+	public void PrePersist() {
+		if(this.loanDate == null) {
+			this.loanDate = LocalDate.now();
+		}
+		if(this.status == null) {
+			this.status = LoanStatus.ACTIVE;
+		}
+	}
+	
+	public void markAsReturned() {
+		if(this.status == LoanStatus.ACTIVE) {
+			throw new IllegalStateException("Loan already returned");
+		}
+		
+		this.status = LoanStatus.RETURNED;
+		this.returnDate = LocalDate.now();
 	}
 	
 	public Long getId() {
@@ -80,5 +102,9 @@ public class Loan {
 
 	public LocalDate getLoanDate() {
 		return loanDate;
+	}
+	
+	public LocalDate getReturnDate() {
+		return returnDate;
 	}
 }
