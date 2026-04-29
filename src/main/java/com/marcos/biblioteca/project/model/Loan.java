@@ -13,11 +13,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "tb_loan")  //Time to implement the service.
+@Table(name = "tb_loan")  
 public class Loan {
 	
 	@Id
@@ -27,24 +27,22 @@ public class Loan {
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	@JsonIgnore
-	private User users;
+	private User user;
 	
 	@Enumerated(EnumType.STRING)
-	@NotNull(message = "O campo status não pode ser nulo")
 	private LoanStatus status;
 	
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Book book;
 	
-	@NotNull
 	private LocalDate loanDate;
 	
 	public Loan() {
 	}
 	
-	public Loan(User users, Book book) {
-		this.users = users;
+	public Loan(User user, Book book) {
+		this.user = user;
 		this.book = book;
 		this.loanDate = LocalDate.now();
 		setLoanStatus(LoanStatus.ACTIVE);
@@ -55,11 +53,11 @@ public class Loan {
 	}
 	
 	public User getUser() {
-		return users;
+		return user;
 	}
 	
 	public void setUser(User user) {
-		this.users = user;
+		this.user = user;
 	}
 	
 	public Book getBook() {

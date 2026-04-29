@@ -36,7 +36,7 @@ public class User {
 	@NotNull(message = "A idade não deve ser nula")
 	private Integer age;
 	
-	@OneToMany(mappedBy = "users")
+	@OneToMany(mappedBy = "user")
 	private List<Loan> loans = new ArrayList<>();
 	
 	public User() {

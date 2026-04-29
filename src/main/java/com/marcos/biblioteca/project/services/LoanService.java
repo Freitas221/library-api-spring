@@ -1,5 +1,7 @@
 package com.marcos.biblioteca.project.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +26,11 @@ public class LoanService {
 	@Autowired 
 	public UserRepository userRepository;
 	
+	
+	public List<Loan> findAll() {
+		return loanRepository.findAll();
+	}
+	
 	public Loan createLoan(Loan obj) {
 		
 		Book book = bookRepository.findById(obj.getBook().getId())
@@ -36,10 +43,9 @@ public class LoanService {
 			throw new IllegalArgumentException();
 		}
 		
-		obj.setBook(book);
-		obj.setUser(user);
+		Loan loan = new Loan(user, book);
 		
-		return loanRepository.save(obj);
+		return loanRepository.save(loan);
 	}
 
 }
