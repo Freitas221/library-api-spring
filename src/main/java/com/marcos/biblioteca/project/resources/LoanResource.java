@@ -45,4 +45,10 @@ public class LoanResource {
 		
 		return ResponseEntity.created(uri).body(obj);
 	}
+	
+	@PutMapping(value = "/{id}/return")
+	public ResponseEntity<Void> updateLoan(@PathVariable Long id) {
+		service.loanReturned(id);
+		return ResponseEntity.noContent().build();
+	}
 }
