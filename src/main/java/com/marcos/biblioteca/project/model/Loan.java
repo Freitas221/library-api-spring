@@ -33,6 +33,7 @@ public class Loan {
 	private LoanStatus status;
 	
 	@ManyToOne
+	@JsonIgnore
 	@JoinColumn(nullable = false)
 	private Book book;
 	
@@ -61,7 +62,7 @@ public class Loan {
 	}
 	
 	public void markAsReturned() {
-		if(this.status == LoanStatus.ACTIVE) {
+		if(this.status == LoanStatus.RETURNED) {
 			throw new IllegalStateException("Loan already returned");
 		}
 		

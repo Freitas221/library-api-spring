@@ -48,12 +48,13 @@ public class LoanService {
 		return loanRepository.save(loan);
 	}
 	
-	public void delete(Long obj) {
+	public void loanReturned(Long obj) {
 		
 		Loan loan = loanRepository.findById(obj)
 				.orElseThrow(() -> new ResourceNotFoundException("Loan not found", obj));
 		
-		loanRepository.delete(loan);
+		loan.markAsReturned();
+		loanRepository.save(loan);
 	}
 
 }

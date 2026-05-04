@@ -18,9 +18,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.NoArgsConstructor;
 
-@NoArgsConstructor  
 @Entity
 @Table(name = "tb_book")
 public class Book implements Serializable{
@@ -53,6 +51,8 @@ public class Book implements Serializable{
 	@JoinTable(name = "book_category", joinColumns = @JoinColumn(name = "book_id", nullable = false), inverseJoinColumns = @JoinColumn(name = "category_id", nullable = false))
 	private Set<Category> category = new HashSet<>();
 	
+	public Book() {
+	}
 
 	public Book(Long id, String titulo, LocalDate publication) {
 		super();
