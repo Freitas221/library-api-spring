@@ -36,6 +36,16 @@ public class ResourceExceptionHandler {
 		return ResponseEntity.status(status).body(sr);
 	}
 	
+	@ExceptionHandler(IllegalStateException.class)
+	public ResponseEntity<StandardError> illegalException(IllegalStateException e, HttpServletRequest request) {
+		String error = ("Book already returned");
+		HttpStatus status = HttpStatus.CONFLICT;
+		
+		StandardError sr = new StandardError(Instant.now(), status.value(), error, e.getMessage(), request.getRequestURI());
+		
+		return ResponseEntity.status(status).body(sr);
+		
+	}
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<StandardError> validationError(MethodArgumentNotValidException e, HttpServletRequest request) {
