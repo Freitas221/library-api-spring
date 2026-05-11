@@ -2,7 +2,9 @@ package com.marcos.biblioteca.project.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -15,6 +17,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -46,6 +49,9 @@ public class Book implements Serializable{
 	@JoinColumn(name = "publisher_id", nullable = false)
 	private Publisher publisher;
 	
+	@OneToMany(mappedBy = "book")
+	private List<Loan> loan = new ArrayList<>();
+
 	@NotNull
 	@ManyToMany
 	@JoinTable(name = "book_category", joinColumns = @JoinColumn(name = "book_id", nullable = false), inverseJoinColumns = @JoinColumn(name = "category_id", nullable = false))
@@ -98,6 +104,10 @@ public class Book implements Serializable{
 	        this.category.addAll(category);
 	    }
 	} // does not replace the reference, just adds elements
+	
+	public List<Loan> getLoan() {
+		return loan;
+	}
 	
 	public Author getAuthor() {
 		return author;

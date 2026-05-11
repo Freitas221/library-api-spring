@@ -56,5 +56,4 @@ public class LoanService {
 		loan.markAsReturned();
 		loanRepository.save(loan);
 	}
-
 }
