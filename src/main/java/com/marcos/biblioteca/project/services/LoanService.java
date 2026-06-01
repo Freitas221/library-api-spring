@@ -12,6 +12,7 @@ import com.marcos.biblioteca.project.model.User;
 import com.marcos.biblioteca.project.repositories.BookRepository;
 import com.marcos.biblioteca.project.repositories.LoanRepository;
 import com.marcos.biblioteca.project.repositories.UserRepository;
+import com.marcos.biblioteca.project.services.exception.IllegalStateException;
 import com.marcos.biblioteca.project.services.exception.ResourceNotFoundException;
 
 @Service
@@ -34,13 +35,17 @@ public class LoanService {
 	public Loan createLoan(Loan obj) {
 		
 		Book book = bookRepository.findById(obj.getBook().getId())
-				.orElseThrow(()-> new ResourceNotFoundException("Book", obj.getBook().getId(), "During insertion"));
+				.orElseThrow(()-> new ResourceNotFoundException("Book", obj.getBook().getId(), "During insertion")); //Checar o POST
 		
 		User user = userRepository.findById(obj.getUser().getId())
 				.orElseThrow(() -> new ResourceNotFoundException("User", obj.getUser().getId(), "During Insertion"));
 		
 		if(loanRepository.existsByBookAndStatus(book, LoanStatus.ACTIVE)) {
-			throw new IllegalArgumentException();
+			throw new IllegalStateException();
+		}
+		
+		if(loanRepository.existsByUserAndStatus(user, LoanStatus.ACTIVE)) {
+			throw new IllegalStateException(obj.getUser().getName());
 		}
 		
 		Loan loan = new Loan(user, book);
