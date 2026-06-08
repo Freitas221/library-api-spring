@@ -3,6 +3,8 @@ package com.marcos.biblioteca.project.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -37,6 +39,7 @@ public class User {
 	private Integer age;
 	
 	@OneToMany(mappedBy = "user")
+	@JsonIgnore
 	private List<Loan> loans = new ArrayList<>();
 	
 	public User() {

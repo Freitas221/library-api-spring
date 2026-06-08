@@ -35,7 +35,7 @@ public class LoanService {
 	public Loan createLoan(Loan obj) {
 		
 		Book book = bookRepository.findById(obj.getBook().getId())
-				.orElseThrow(()-> new ResourceNotFoundException("Book", obj.getBook().getId(), "During insertion")); //Checar o POST
+				.orElseThrow(()-> new ResourceNotFoundException("Book", obj.getBook().getId(), "During insertion"));
 		
 		User user = userRepository.findById(obj.getUser().getId())
 				.orElseThrow(() -> new ResourceNotFoundException("User", obj.getUser().getId(), "During Insertion"));
@@ -61,4 +61,5 @@ public class LoanService {
 		loan.markAsReturned();
 		loanRepository.save(loan);
 	}
+	
 }

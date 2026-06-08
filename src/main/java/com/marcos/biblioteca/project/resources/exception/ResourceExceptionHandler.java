@@ -9,6 +9,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.marcos.biblioteca.project.services.exception.BookAlreadyLoanedException;
 import com.marcos.biblioteca.project.services.exception.DatabaseException;
 import com.marcos.biblioteca.project.services.exception.ResourceNotFoundException;
 
@@ -45,6 +46,16 @@ public class ResourceExceptionHandler {
 		
 		return ResponseEntity.status(status).body(sr);
 		
+	}
+	
+	@ExceptionHandler(BookAlreadyLoanedException.class)
+	public ResponseEntity<StandardError> BookAlreadyLoaned(BookAlreadyLoanedException e, HttpServletRequest request) {
+		String error = ("Book already returned");
+		HttpStatus status = HttpStatus.CONFLICT;
+		
+		StandardError sr = new StandardError(Instant.now(), status.value(), error, e.getMessage(), request.getRequestURI());
+		
+		return ResponseEntity.status(status).body(sr);
 	}
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)

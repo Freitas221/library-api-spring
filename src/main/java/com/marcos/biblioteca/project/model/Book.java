@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -50,6 +52,7 @@ public class Book implements Serializable{
 	private Publisher publisher;
 	
 	@OneToMany(mappedBy = "book")
+	@JsonIgnore
 	private List<Loan> loan = new ArrayList<>();
 
 	@NotNull

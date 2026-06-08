@@ -2,8 +2,8 @@ package com.marcos.biblioteca.project.model;
 
 import java.time.LocalDate;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.marcos.biblioteca.project.enums.LoanStatus;
+import com.marcos.biblioteca.project.services.exception.BookAlreadyLoanedException;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -26,14 +26,12 @@ public class Loan {
 	
 	@ManyToOne
 	@JoinColumn(nullable = false)
-	@JsonIgnore
 	private User user;
 	
 	@Enumerated(EnumType.STRING)
 	private LoanStatus status;
 	
 	@ManyToOne
-	@JsonIgnore
 	@JoinColumn(nullable = false)
 	private Book book;
 	
@@ -63,12 +61,18 @@ public class Loan {
 	
 	public void markAsReturned() {
 		if(this.status == LoanStatus.RETURNED) {
-			throw new IllegalStateException("Loan already returned");
+			throw new BookAlreadyLoanedException();
 		}
 		
 		this.status = LoanStatus.RETURNED;
 		this.returnDate = LocalDate.now();
 	}
+	
+	public void delayedRerurn() {
+		if(this.status == LoanStatus.RETURNED) {	
+		}
+	}
+
 	
 	public Long getId() {
 		return id;
@@ -83,7 +87,7 @@ public class Loan {
 	}
 	
 	public Book getBook() {
-		return  book;
+		return book;
 	}
 	
 	public void setBook(Book book) {

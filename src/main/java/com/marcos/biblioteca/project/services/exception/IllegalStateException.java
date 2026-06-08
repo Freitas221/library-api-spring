@@ -4,7 +4,7 @@ public class IllegalStateException extends RuntimeException {
 	private static final long serialVersionUID = 1L;
 	
 	public IllegalStateException() {
-		super("Este livro já foi devolvido");
+		super("O livro se encontra emprestado");
 	}
 	
 	public IllegalStateException(String name) {
