@@ -37,6 +37,8 @@ public class Loan {
 	
 	private LocalDate loanDate;
 	
+	private LocalDate dueDate;
+	
 	private LocalDate returnDate;
 	
 	public Loan() {
@@ -46,6 +48,7 @@ public class Loan {
 		this.user = user;
 		this.book = book;
 		this.loanDate = LocalDate.now();
+		this.dueDate = loanDate.plusDays(7);
 		setLoanStatus(LoanStatus.ACTIVE);
 	}
 	
@@ -108,5 +111,9 @@ public class Loan {
 	
 	public LocalDate getReturnDate() {
 		return returnDate;
+	}
+	
+	public LocalDate dueDate() {
+		return dueDate;
 	}
 }
