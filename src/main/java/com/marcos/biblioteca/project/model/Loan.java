@@ -1,6 +1,7 @@
 package com.marcos.biblioteca.project.model;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 import com.marcos.biblioteca.project.enums.LoanStatus;
 import com.marcos.biblioteca.project.services.exception.BookAlreadyLoanedException;
@@ -39,6 +40,8 @@ public class Loan {
 	
 	private LocalDate dueDate;
 	
+	private Long delayedDays;
+	
 	private LocalDate returnDate;
 	
 	public Loan() {
@@ -57,6 +60,16 @@ public class Loan {
 		if(this.loanDate == null) {
 			this.loanDate = LocalDate.now();
 		}
+		
+		this.returnDate = LocalDate.now();
+		
+		if(returnDate.isAfter(dueDate)) {
+			this.delayedDays = ChronoUnit.DAYS.between(loanDate, dueDate);
+		}else {
+			this.delayedDays = 0L;
+		}
+		
+		this.status = LoanStatus.RETURNED;
 	}
 	
 	public void markAsReturned() {
@@ -73,7 +86,6 @@ public class Loan {
 		}
 	}
 
-	
 	public Long getId() {
 		return id;
 	}
@@ -113,7 +125,11 @@ public class Loan {
 		return returnDate;
 	}
 	
-	public LocalDate dueDate() {
+	public LocalDate getDueDate() {
 		return dueDate;
+	}
+	
+	public Long getDelayedDays() {
+		return delayedDays;
 	}
 }
