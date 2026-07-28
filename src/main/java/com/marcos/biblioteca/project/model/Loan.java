@@ -54,9 +54,6 @@ public class Loan {
 		if(this.loanDate == null) {
 			this.loanDate = LocalDate.now();
 		}
-		if(this.status == null) {
-			this.status = LoanStatus.ACTIVE;
-		}
 	}
 	
 	public void markAsReturned() {
@@ -68,7 +65,7 @@ public class Loan {
 		this.returnDate = LocalDate.now();
 	}
 	
-	public void delayedRerurn() {
+	public void delayedReturn() {
 		if(this.status == LoanStatus.RETURNED) {	
 		}
 	}
