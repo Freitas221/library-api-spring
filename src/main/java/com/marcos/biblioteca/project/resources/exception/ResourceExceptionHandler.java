@@ -49,7 +49,7 @@ public class ResourceExceptionHandler {
 	}
 	
 	@ExceptionHandler(BookAlreadyLoanedException.class)
-	public ResponseEntity<StandardError> BookAlreadyLoaned(BookAlreadyLoanedException e, HttpServletRequest request) {
+	public ResponseEntity<StandardError> bookAlreadyLoaned(BookAlreadyLoanedException e, HttpServletRequest request) {
 		String error = ("Book already returned");
 		HttpStatus status = HttpStatus.CONFLICT;
 		
