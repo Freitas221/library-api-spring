@@ -47,8 +47,8 @@ public class LoanResource {
 	}
 	
 	@PutMapping(value = "/{id}/return")
-	public ResponseEntity<Void> updateLoan(@PathVariable Long id) {
-		service.loanReturned(id);
-		return ResponseEntity.noContent().build();
+	public ResponseEntity<Loan> updateLoan(@PathVariable Long id) {
+		Loan loan = service.loanReturned(id);
+		return ResponseEntity.ok().body(loan);
 	}
 }
