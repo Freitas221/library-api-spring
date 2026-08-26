@@ -53,13 +53,13 @@ public class LoanService {
 		return loanRepository.save(loan);
 	}
 	
-	public void loanReturned(Long obj) {
+	public Loan loanReturned(Long obj) {
 		
 		Loan loan = loanRepository.findById(obj)
 				.orElseThrow(() -> new ResourceNotFoundException("Loan not found", obj));
 		
 		loan.markAsReturned();
-		loanRepository.save(loan);
+		return loanRepository.save(loan);
 	}
 	
 }

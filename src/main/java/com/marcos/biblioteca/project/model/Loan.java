@@ -56,9 +56,15 @@ public class Loan {
 	}
 	
 	@PrePersist
-	public void PrePersist() {
+	public void initializeLoanDate() {
 		if(this.loanDate == null) {
 			this.loanDate = LocalDate.now();
+		}
+	}
+	
+	public void markAsReturned() {
+		if(this.status == LoanStatus.RETURNED) {
+			throw new BookAlreadyLoanedException();
 		}
 		
 		this.returnDate = LocalDate.now();
@@ -68,22 +74,9 @@ public class Loan {
 		}else {
 			this.delayedDays = 0L;
 		}
-		
-		this.status = LoanStatus.RETURNED;
-	}
-	
-	public void markAsReturned() {
-		if(this.status == LoanStatus.RETURNED) {
-			throw new BookAlreadyLoanedException();
-		}
-		
+				
 		this.status = LoanStatus.RETURNED;
 		this.returnDate = LocalDate.now();
-	}
-	
-	public void delayedReturn() {
-		if(this.status == LoanStatus.RETURNED) {	
-		}
 	}
 
 	public Long getId() {
