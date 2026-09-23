@@ -5,5 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.marcos.biblioteca.project.model.User;
 
 public interface UserRepository extends JpaRepository<User, Long>{
-
+	
+	boolean existsByCpf(String cpf);
+	
+	boolean existsByPhone(String phone);
 }
