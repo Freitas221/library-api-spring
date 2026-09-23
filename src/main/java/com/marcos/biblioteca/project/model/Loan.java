@@ -70,13 +70,12 @@ public class Loan {
 		this.returnDate = LocalDate.now();
 		
 		if(returnDate.isAfter(dueDate)) {
-			this.delayedDays = ChronoUnit.DAYS.between(loanDate, dueDate);
+			this.delayedDays = ChronoUnit.DAYS.between(this.dueDate, this.returnDate);
 		}else {
 			this.delayedDays = 0L;
 		}
 				
 		this.status = LoanStatus.RETURNED;
-		this.returnDate = LocalDate.now();
 	}
 
 	public Long getId() {
