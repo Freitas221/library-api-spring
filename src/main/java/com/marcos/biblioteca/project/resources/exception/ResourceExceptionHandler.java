@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.marcos.biblioteca.project.services.exception.BookAlreadyLoanedException;
 import com.marcos.biblioteca.project.services.exception.DatabaseException;
+import com.marcos.biblioteca.project.services.exception.DuplicateCpfException;
 import com.marcos.biblioteca.project.services.exception.ResourceNotFoundException;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -54,6 +55,17 @@ public class ResourceExceptionHandler {
 		HttpStatus status = HttpStatus.CONFLICT;
 		
 		StandardError sr = new StandardError(Instant.now(), status.value(), error, e.getMessage(), request.getRequestURI());
+		
+		return ResponseEntity.status(status).body(sr);
+	}
+	
+	@ExceptionHandler(DuplicateCpfException.class)
+	public ResponseEntity<StandardError> userCpfExists(DuplicateCpfException e, HttpServletRequest request) {
+		
+		HttpStatus status = HttpStatus.BAD_REQUEST;
+		String error = "Error: CPF already exists";
+		
+		StandardError sr = new StandardError(Instant.now(), status.value(), e.getMessage(), error, request.getRequestURI());
 		
 		return ResponseEntity.status(status).body(sr);
 	}
