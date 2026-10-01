@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.marcos.biblioteca.project.model.User;
 import com.marcos.biblioteca.project.repositories.UserRepository;
-import com.marcos.biblioteca.project.services.exception.IllegalStateException;
+import com.marcos.biblioteca.project.services.exception.ActiveLoanException;
 
 @Service
 public class UserService {
@@ -15,7 +15,7 @@ public class UserService {
 	
 	public User userRegister(User obj) {
 		if(userRepository.existsByCpf(obj.getCpf())) {
-			throw new IllegalStateException();
+			throw new ActiveLoanException();
 		}
 		
 		return userRepository.save(obj);
