@@ -1,9 +1,11 @@
 package com.marcos.biblioteca.project.resources;
 
 import java.net.URI;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +23,14 @@ public class UserResource {
 
 	@Autowired
 	private UserService userService;
+	
+	@GetMapping
+	private ResponseEntity<List<User>> fetchesData() {
+		List<User> list = userService.findAll();
+		
+		return ResponseEntity.ok().body(list);
+	}
+	
 	
 	@PostMapping
 	public ResponseEntity<User> registerUser(@Valid @RequestBody User user) {

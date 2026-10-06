@@ -14,6 +14,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "tb_users")
@@ -29,10 +30,15 @@ public class User {
 	
 	@NotBlank(message = "O cpf não pode ser nulo")
 	@Column(nullable = false, unique = true)
+	
+	@Pattern(
+		regexp = "\\d{11}",
+		message = "CPF deve conter 11 dígitos"
+	)
 	private String cpf;
 	
 	@NotBlank(message = "O número não pode ser nulo")
-	@Column(nullable = false, unique = true)
+	@Column(nullable = false) 
 	private String phone;
 	
 	@NotNull(message = "A idade não deve ser nula")

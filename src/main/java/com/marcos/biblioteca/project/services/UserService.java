@@ -1,5 +1,7 @@
 package com.marcos.biblioteca.project.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,10 @@ public class UserService {
 	
 	@Autowired
 	private	UserRepository userRepository;
+	
+	public List<User> findAll(){
+		return userRepository.findAll();
+	}
 	
 	public User userRegister(User obj) {
 		if(userRepository.existsByCpf(obj.getCpf())) {
