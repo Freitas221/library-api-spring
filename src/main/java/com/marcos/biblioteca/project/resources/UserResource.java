@@ -6,7 +6,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,7 +33,6 @@ public class UserResource {
 		return ResponseEntity.ok().body(list);
 	}
 	
-	
 	@PostMapping
 	public ResponseEntity<User> registerUser(@Valid @RequestBody User user) {
 		User obj = userService.userRegister(user);
@@ -43,5 +44,12 @@ public class UserResource {
 				.toUri();
 		
 		return ResponseEntity.created(uri).body(obj);
+	}
+	
+	@PutMapping(value = "/{id}/update")
+	public ResponseEntity<User> updateUser(@PathVariable Long id, @Valid @RequestBody User user) {
+		User obj = userService.findUpdate(id, user);
+		
+		return ResponseEntity.ok().body(obj);
 	}
 }

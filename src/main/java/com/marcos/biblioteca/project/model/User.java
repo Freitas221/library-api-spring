@@ -30,7 +30,6 @@ public class User {
 	
 	@NotBlank(message = "O cpf não pode ser nulo")
 	@Column(nullable = false, unique = true)
-	
 	@Pattern(
 		regexp = "\\d{11}",
 		message = "CPF deve conter 11 dígitos"

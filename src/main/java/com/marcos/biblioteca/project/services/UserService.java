@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 import com.marcos.biblioteca.project.model.User;
 import com.marcos.biblioteca.project.repositories.UserRepository;
 import com.marcos.biblioteca.project.services.exception.DuplicateCpfException;
+import com.marcos.biblioteca.project.services.exception.ResourceNotFoundException;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class UserService {
@@ -25,5 +28,23 @@ public class UserService {
 		}
 		
 		return userRepository.save(obj);
+	}
+	
+	public User findUpdate(Long obj, User user) {
+		try {
+			User entity = userRepository.getReferenceById(obj);
+			updateData(entity, user);
+			
+			return userRepository.save(entity);
+		}catch(EntityNotFoundException e) {
+			throw new ResourceNotFoundException("User", user);
+		}
+	}
+	
+	public void updateData(User entity, User user) {
+		entity.setCpf(user.getCpf());
+		entity.setIdade(user.getIdade());
+		entity.setName(user.getName());
+		entity.setPhone(user.getPhone());
 	}
 }
