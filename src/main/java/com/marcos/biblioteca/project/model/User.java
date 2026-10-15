@@ -12,6 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -43,6 +44,11 @@ public class User {
 	@NotNull(message = "A idade não deve ser nula")
 	private Integer age;
 	
+
+	@NotBlank(message = "O e-mail deve ser preenchido")
+	@Email(message = "Informe um e-mail válido válido")
+	private String email;
+	
 	@OneToMany(mappedBy = "user")
 	@JsonIgnore
 	private List<Loan> loans = new ArrayList<>();
@@ -50,12 +56,13 @@ public class User {
 	public User() {
 	}
 	
-	public User(String name, String cpf, String phone, Integer idade) {
+	public User(String name, String cpf, String phone, Integer idade, String email) {
 		
 		this.name = name;
 		this.cpf = cpf;
 		this.phone = phone;
 		this.age = idade;
+		this.email = email;
 	}
 	
 	public Long getId() {
@@ -94,5 +101,11 @@ public class User {
 		this.age = idade;
 	}
 	
+	public String getEmail() {
+		return email;
+	}
 	
+	public void SetEmail(String email) {
+		this.email = email;
+	}
 }

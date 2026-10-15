@@ -71,10 +71,10 @@ public class TestConfig implements CommandLineRunner {
 		Book book3 = new Book(null, "O Homem que ri",LocalDate.of(1869, 4, 25));
 		Book book4 = new Book(null, "Laços de família",LocalDate.of(1960, 6, 7));
 		
-		User user1 = new User("Marcos", "70412730977", "31982492293", 17);
-		User user2 = new User("Lara", "30677899475", "31985469878", 10);
-		User user3 = new User("Maildes", "36978945877", "31987554877", 34);
-		User user4 = new User("Oderlone", "70898745699", "31988874549", 40);
+		User user1 = new User("Marcos", "70412730977", "31982492293", 17, "marcosfreitas7897@gmail.com");
+		User user2 = new User("Lara", "30677899475", "31985469878", 10, "larafreitas3521@gmaill.com");
+		User user3 = new User("Maildes", "36978945877", "31987554877", 34, "maildes888@gmail.com");
+		User user4 = new User("Oderlone", "70898745699", "31988874549", 40, "oderlonefreitas@gmail.com");
 		
 		
 		Loan loan1 = new Loan(user3, book1);

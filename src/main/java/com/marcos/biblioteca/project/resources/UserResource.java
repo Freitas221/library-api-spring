@@ -33,6 +33,14 @@ public class UserResource {
 		return ResponseEntity.ok().body(list);
 	}
 	
+	@GetMapping(value = "/{id}") //Fazer commit
+	private ResponseEntity<User> fetcheDataId(@PathVariable Long id) {
+		User obj = userService.findById(id);
+		
+		return ResponseEntity.ok().body(obj);
+	}
+	
+	
 	@PostMapping
 	public ResponseEntity<User> registerUser(@Valid @RequestBody User user) {
 		User obj = userService.userRegister(user);
